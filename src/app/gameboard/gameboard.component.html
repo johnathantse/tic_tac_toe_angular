@@ -1,0 +1,11 @@
+<div>
+    <h2>Last Played: {{ lastPlayed }}</h2>
+    <table class="gameboard">
+        <tr *ngFor="let row of size">
+            <td *ngFor="let col of size">
+                <app-gamecell-options (lastPlayedEmitter)="lastPlayed=$event"
+                [lastPlayed]="lastPlayed"></app-gamecell-options>
+            </td>
+        </tr>
+    </table>
+</div>
