@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { GameBoardCellOptions } from '../gameboard';
+import { GameBoardCellOptions, PlayedTurn } from '../gameboard';
 
 @Component({
   selector: 'app-gamecell-options',
@@ -8,9 +8,13 @@ import { GameBoardCellOptions } from '../gameboard';
 })
 export class GamecellOptionsComponent implements OnInit {
   playerOptions = GameBoardCellOptions;
-  @Input() public lastPlayed!: GameBoardCellOptions;
-  @Output() public lastPlayedEmitter = new EventEmitter(); 
-  
+  // newLastPlayed = LastPlayed;
+  @Input() public lastPlayed!: PlayedTurn;
+  // @Input() public turns: Array<PlayedTurn>;
+  @Input() public cellIdx!:[number, number];
+
+  @Output() public lastPlayedEmitter = new EventEmitter();
+
   constructor() {
   }
 
@@ -18,7 +22,10 @@ export class GamecellOptionsComponent implements OnInit {
 
   public onOptionSelected(event: any) {
     console.log(event);
-    this.lastPlayedEmitter.emit(event.target.value);
+    console.log(event.target.value);
+    let newLastPlayed = new PlayedTurn(event.target.value, this.cellIdx);
+    console.log(newLastPlayed);
+    this.lastPlayedEmitter.emit(newLastPlayed);
   }
 
 }

@@ -29,12 +29,24 @@ export class GameBoard {
   winIndices: Array<[number, number, number]>;
 
   constructor(
-  id: number,
+    id: number,
     cell: Array<GameBoardCellOptions>,
     winIndices: Array<[number, number, number]>
   ) {
     this.id = id;
     this.cell = cell;
     this.winIndices = winIndices;
+  }
+}
+
+
+export class PlayedTurn {
+  option: GameBoardCellOptions;
+  cellIndex: [number, number];
+
+  constructor(option:GameBoardCellOptions, cellIndex:[number, number]){
+    this.option=option;
+    this.cellIndex=cellIndex
+
   }
 }
