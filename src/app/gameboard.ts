@@ -6,12 +6,20 @@ export enum GameBoardCellOptions {
   X = 'X',
   O = 'O',
 }
+// export namespace GameBoardCellOptions {
+//   export function values(lastSel: GameBoardCellOptions) {
+//     console.log(GameBoardCellOptions)
+//     return Object.keys(GameBoardCellOptions).filter(
+//       (type) => isNaN(<any>type) && type !== 'values'
+//       // && type!=='UNK'
+//     );
+//   }
+// }
+
 export namespace GameBoardCellOptions {
-  export function values(lastSel: GameBoardCellOptions) {
-    return Object.keys(GameBoardCellOptions).filter(
-      (type) => isNaN(<any>type) && type !== 'values'
-      // && type!=='UNK'
-    );
+  export function getValues(lastSel: GameBoardCellOptions): any {
+    return Object.values(GameBoardCellOptions).filter((option) => typeof(option) == 'string');
+    ;
   }
 }
 
@@ -21,7 +29,7 @@ export class GameBoard {
   winIndices: Array<[number, number, number]>;
 
   constructor(
-    id: number,
+  id: number,
     cell: Array<GameBoardCellOptions>,
     winIndices: Array<[number, number, number]>
   ) {

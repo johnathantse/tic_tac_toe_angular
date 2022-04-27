@@ -1,9 +1,9 @@
 <!-- <p>gamecell-options works!</p> -->
 <div class="gamecell">
     <select formControlName="state">
-        <option *ngFor="let playerOption of playerOptions.values(lastPlayed)"
+        <option *ngFor="let playerOption of playerOptions.getValues(lastPlayed)"
             (click) = onOptionSelected($event)
-            [disabled]="playerOption==lastPlayed"
+            [disabled]="playerOption==lastPlayed || playerOption == playerOptions.UNK"
         >
             {{ playerOption }}
         </option>

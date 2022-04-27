@@ -11,5 +11,8 @@ export class GameboardComponent implements OnInit {
   lastPlayed = GameBoardCellOptions.UNK;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(GameBoardCellOptions.getValues(this.lastPlayed))
+    console.log(Object.values(GameBoardCellOptions))
+  }
 }
