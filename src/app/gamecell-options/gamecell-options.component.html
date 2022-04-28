@@ -1,12 +1,17 @@
-<!-- <p>gamecell-options works!</p> -->
 <div class="gamecell">
-    <select formControlName="cell">
-        <option *ngFor="let playerOption of playerOptions.getValues(lastPlayed.option)"
-            (click) = onOptionSelected($event)
-            [disabled]="playerOption==lastPlayed.option || playerOption == playerOptions.UNK"
-            [selected]="playerOption == '*'"
-        >
-            {{ playerOption }}
-        </option>
-    </select>
+  <!-- <p>
+    {{ turns[turns.length - 1].option }} {{ turns[turns.length - 1].cellIndex }}
+  </p> -->
+  <select formControlName="cell">
+    <option
+      *ngFor="let playerOption of playerOptions.getValues()"
+      (click)="onOptionSelected($event)"
+      [disabled]="
+        playerOption == getLastTurnOption() || playerOption == playerOptions.UNK
+      "
+      [selected]="playerOption == '*'"
+    >
+      {{ playerOption }}
+    </option>
+  </select>
 </div>

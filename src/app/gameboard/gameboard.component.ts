@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GameBoard, GameBoardCellOptions, PlayedTurn } from '../gameboard';
+import { GameBoard, GameBoardCellOptions, GameCellState } from '../gameboard';
 import { GamecellOptionsComponent } from '../gamecell-options/gamecell-options.component';
 
 @Component({
@@ -10,33 +10,51 @@ import { GamecellOptionsComponent } from '../gamecell-options/gamecell-options.c
 export class GameboardComponent implements OnInit {
   readonly size = [...Array(3).keys()];
   // lastPlayed = GameBoardCellOptions.UNK;
-  lastPlayed: PlayedTurn = {
+  lastPlayed: GameCellState = {
     option: GameBoardCellOptions.UNK,
-    cellIndex: [-1, -1]
+    cellIndex: [-1, -1],
   };
-  turns: Array<PlayedTurn>;
-  gameboard: GameBoard = {
-    id: 1,
-    cell: [GameBoardCellOptions.UNK, GameBoardCellOptions.UNK, GameBoardCellOptions.UNK,
-      GameBoardCellOptions.UNK, GameBoardCellOptions.UNK, GameBoardCellOptions.UNK,
-      GameBoardCellOptions.UNK, GameBoardCellOptions.UNK, GameBoardCellOptions.UNK],
-      winIndices: [[0,1,2],[3,4,5],[6,7,8],
-                   [0,3,6],[1,4,7],[2,5,8],
-                   [0,4,8], [6,4,2]]
-  };
+  turns: Array<GameCellState>;
+  gameboard = new GameBoard(
+    1,
+    [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [6, 4, 2],
+        ],
+      
+     );
 
   constructor() {}
 
-  undo(){
-    this.turns.pop();
-    this.lastPlayed = this.turns[this.turns.length-1];
+  undo() {
+    if(this.turns.length > 0){
+      let turn: GameCellState = this.turns.pop()!;
+      this.gameboard.setCellOption(
+        turn.option, 
+        turn.cellIndex[0], 
+        turn.cellIndex[1]
+      )
+      this.lastPlayed = this.turns[this.turns.length - 1];
+    }
   }
-  
-  ngOnInit(): void {
-    console.log(GameBoardCellOptions.getValues(this.lastPlayed.option))
-    console.log(Object.values(GameBoardCellOptions))
 
+  public getLastTurnOption() {
+    console.log('retrieving last turn option');
+    return this.turns[this.turns.length - 1].option;
+  }
+
+  ngOnInit(): void {
+    // console.log(GameBoardCellOptions.getValues());
+    // console.log(Object.values(GameBoardCellOptions));
+    console.log(this.gameboard)
+    console.log(this.gameboard.getCells()[0][0])
     this.turns = [];
-    this.turns.push(this.lastPlayed)
+    this.turns.push(this.lastPlayed);
   }
 }

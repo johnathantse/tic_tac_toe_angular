@@ -6,47 +6,54 @@ export enum GameBoardCellOptions {
   X = 'X',
   O = 'O',
 }
-// export namespace GameBoardCellOptions {
-//   export function values(lastSel: GameBoardCellOptions) {
-//     console.log(GameBoardCellOptions)
-//     return Object.keys(GameBoardCellOptions).filter(
-//       (type) => isNaN(<any>type) && type !== 'values'
-//       // && type!=='UNK'
-//     );
-//   }
-// }
 
 export namespace GameBoardCellOptions {
-  export function getValues(lastSel: GameBoardCellOptions): any {
-    return Object.values(GameBoardCellOptions).filter((option) => typeof(option) == 'string');
-    ;
+  export function getValues(): any {
+    return Object.values(GameBoardCellOptions).filter(
+      (option) => typeof option == 'string'
+    );
   }
 }
 
 export class GameBoard {
   id: number;
-  cell: Array<GameBoardCellOptions>;
+  private cells: Array<Array<GameCellState>>;
   winIndices: Array<[number, number, number]>;
 
-  constructor(
-    id: number,
-    cell: Array<GameBoardCellOptions>,
-    winIndices: Array<[number, number, number]>
-  ) {
+  constructor(id: number, winIndices: Array<[number, number, number]>) {
+    console.log("calling constructor")
     this.id = id;
-    this.cell = cell;
     this.winIndices = winIndices;
+    this.cells = [];
+    const size = [0, 1, 2];
+    for (const [index, elem] of size.entries()) {
+      let row = [];
+      for (const [index2, elem2] of size.entries()) {
+        let cell: GameCellState = {
+          option: GameBoardCellOptions.UNK,
+          cellIndex: [index, index2],
+        };
+        row.push(cell);
+      }
+    this.cells.push(row);
+    }
+  }
+
+  public getCells(){
+    return this.cells
+  }
+  
+  public setCellOption(option: GameBoardCellOptions, rowIndex:number, colIndex:number){
+    this.cells[rowIndex][colIndex].option = option
   }
 }
 
-
-export class PlayedTurn {
+export class GameCellState {
   option: GameBoardCellOptions;
   cellIndex: [number, number];
 
-  constructor(option:GameBoardCellOptions, cellIndex:[number, number]){
-    this.option=option;
-    this.cellIndex=cellIndex
-
+  constructor(option: GameBoardCellOptions, cellIndex: [number, number]) {
+    this.option = option;
+    this.cellIndex = cellIndex;
   }
 }

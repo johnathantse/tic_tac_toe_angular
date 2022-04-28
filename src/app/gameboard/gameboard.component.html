@@ -1,13 +1,19 @@
 <div>
-    <h2>Last Played: {{ lastPlayed.option }} at index: {{ lastPlayed.cellIndex}} </h2>
-    <table class="gameboard" cellId=-1>
-        <tr *ngFor="let row of size; let row_idx = index">
-            <td *ngFor="let col of size; let col_idx = index">
-                {{ row_idx }} {{ col_idx }}
-                <app-gamecell-options (lastPlayedEmitter)="lastPlayed=$event"
-                [lastPlayed]="lastPlayed" [cellIdx]="[row_idx, col_idx]"></app-gamecell-options>
-            </td>
-        </tr>
-    </table>
-    <button (click) = undo()>Undo</button>
+  <h2>
+    Last Played: {{ getLastTurnOption() }} at index:
+    {{ turns[turns.length - 1].cellIndex }}
+  </h2>
+  <table class="gameboard" cellId="-1">
+    <tr *ngFor="let row of gameboard.getCells(); let row_idx = index">
+      <td *ngFor="let col of row; let col_idx = index">
+          {{col.cellIndex}}
+        <app-gamecell-options
+          (turnsEmitter)="turns = $event"
+          [turns]="turns"
+          [cellIdx]="col.cellIndex"
+        ></app-gamecell-options>
+      </td>
+    </tr>
+  </table>
+  <button (click)="undo()">Undo</button>
 </div>
