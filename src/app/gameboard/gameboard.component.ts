@@ -8,11 +8,10 @@ import { GamecellOptionsComponent } from '../gamecell-options/gamecell-options.c
   styleUrls: ['./gameboard.component.css'],
 })
 export class GameboardComponent implements OnInit {
-  readonly size = [...Array(3).keys()];
-  // lastPlayed = GameBoardCellOptions.UNK;
   lastPlayed: GameCellState = {
     option: GameBoardCellOptions.UNK,
     cellIndex: [-1, -1],
+    cellHasPlayed: false
   };
   turns: Array<GameCellState>;
   gameboard = new GameBoard(
@@ -30,17 +29,23 @@ export class GameboardComponent implements OnInit {
       
      );
 
+  hasPlayed=false;
+  playerSelect = GameBoardCellOptions.UNK
+
   constructor() {}
 
   undo() {
     if(this.turns.length > 0){
       let turn: GameCellState = this.turns.pop()!;
+      console.log(turn)
       this.gameboard.setCellOption(
-        turn.option, 
+        GameBoardCellOptions.UNK, 
         turn.cellIndex[0], 
-        turn.cellIndex[1]
+        turn.cellIndex[1],
+        false
       )
       this.lastPlayed = this.turns[this.turns.length - 1];
+      this.hasPlayed = false;
     }
   }
 
@@ -49,9 +54,15 @@ export class GameboardComponent implements OnInit {
     return this.turns[this.turns.length - 1].option;
   }
 
+  public updateGameState(gameCellState: GameCellState){
+    console.log('updating game state')
+    this.hasPlayed=true;
+    this.lastPlayed = gameCellState
+    this.turns.push(gameCellState)
+    this.gameboard.setCellOption(gameCellState.option, gameCellState.cellIndex[0], gameCellState.cellIndex[1], true)
+  }
+
   ngOnInit(): void {
-    // console.log(GameBoardCellOptions.getValues());
-    // console.log(Object.values(GameBoardCellOptions));
     console.log(this.gameboard)
     console.log(this.gameboard.getCells()[0][0])
     this.turns = [];

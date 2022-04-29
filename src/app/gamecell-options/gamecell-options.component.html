@@ -7,9 +7,9 @@
       *ngFor="let playerOption of playerOptions.getValues()"
       (click)="onOptionSelected($event)"
       [disabled]="
-        playerOption == getLastTurnOption() || playerOption == playerOptions.UNK
+        playerOption == lastPlayed.option || playerOption == playerOptions.UNK
       "
-      [selected]="playerOption == '*'"
+      [selected]="playerOption == defaultSelected"
     >
       {{ playerOption }}
     </option>

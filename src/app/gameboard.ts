@@ -21,7 +21,7 @@ export class GameBoard {
   winIndices: Array<[number, number, number]>;
 
   constructor(id: number, winIndices: Array<[number, number, number]>) {
-    console.log("calling constructor")
+    console.log("setting up gameboard")
     this.id = id;
     this.winIndices = winIndices;
     this.cells = [];
@@ -32,6 +32,7 @@ export class GameBoard {
         let cell: GameCellState = {
           option: GameBoardCellOptions.UNK,
           cellIndex: [index, index2],
+          cellHasPlayed: false
         };
         row.push(cell);
       }
@@ -43,17 +44,20 @@ export class GameBoard {
     return this.cells
   }
   
-  public setCellOption(option: GameBoardCellOptions, rowIndex:number, colIndex:number){
+  public setCellOption(option: GameBoardCellOptions, rowIndex:number, colIndex:number, playStatus: boolean){
     this.cells[rowIndex][colIndex].option = option
+    this.cells[rowIndex][colIndex].cellHasPlayed = playStatus
   }
 }
 
 export class GameCellState {
   option: GameBoardCellOptions;
   cellIndex: [number, number];
+  cellHasPlayed: boolean;
 
-  constructor(option: GameBoardCellOptions, cellIndex: [number, number]) {
+  constructor(option: GameBoardCellOptions, cellIndex: [number, number], cellHasPlayed: boolean) {
     this.option = option;
     this.cellIndex = cellIndex;
+    this.cellHasPlayed = cellHasPlayed;
   }
 }

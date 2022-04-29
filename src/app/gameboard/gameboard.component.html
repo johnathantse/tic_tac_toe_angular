@@ -6,14 +6,15 @@
   <table class="gameboard" cellId="-1">
     <tr *ngFor="let row of gameboard.getCells(); let row_idx = index">
       <td *ngFor="let col of row; let col_idx = index">
-          {{col.cellIndex}}
+          <h1>{{ col.option }}</h1>
         <app-gamecell-options
-          (turnsEmitter)="turns = $event"
-          [turns]="turns"
+          (lastPlayedEmitter)="updateGameState($event)"
+          [lastPlayed]="lastPlayed"
           [cellIdx]="col.cellIndex"
+          [defaultSelected]="col.option"
         ></app-gamecell-options>
       </td>
     </tr>
   </table>
-  <button (click)="undo()">Undo</button>
+  <button [disabled]="hasPlayed==false" (click)="undo()">Undo</button>
 </div>
