@@ -9,9 +9,9 @@ import { GameBoardCellOptions, GameCellState } from '../gameboard';
 export class GamecellOptionsComponent implements OnInit {
   playerOptions = GameBoardCellOptions;
   
-  @Input() public cellIdx!: [number, number];
   @Input() public lastPlayed: GameCellState;
   @Input() public defaultSelected: GameBoardCellOptions;
+  @Input() public gameCell: GameCellState;
 
   @Output() public lastPlayedEmitter = new EventEmitter();
 
@@ -20,7 +20,7 @@ export class GamecellOptionsComponent implements OnInit {
   ngOnInit(): void {}
 
   public onOptionSelected(event: any) {
-    let newLastPlayed = new GameCellState(event.target.value, this.cellIdx, true);
+    let newLastPlayed = new GameCellState(event.target.value, this.gameCell.cellIndex, true);
     this.lastPlayedEmitter.emit(newLastPlayed)
   }
 }

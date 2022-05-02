@@ -5,13 +5,13 @@
   </h2>
   <table class="gameboard" cellId="-1">
     <tr *ngFor="let row of gameboard.getCells(); let row_idx = index">
-      <td *ngFor="let col of row; let col_idx = index">
-          <h1>{{ col.option }}</h1>
+      <td *ngFor="let cell of row; let col_idx = index">
+          <h1>{{ cell.option }}</h1>
         <app-gamecell-options
           (lastPlayedEmitter)="updateGameState($event)"
           [lastPlayed]="lastPlayed"
-          [cellIdx]="col.cellIndex"
-          [defaultSelected]="col.option"
+          [defaultSelected]="cell.option"
+          [gameCell]="cell"
         ></app-gamecell-options>
       </td>
     </tr>
