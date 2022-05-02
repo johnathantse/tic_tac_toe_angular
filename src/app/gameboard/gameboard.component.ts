@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameBoard, GameBoardCellOptions, GameCellState } from '../gameboard';
 import { GamecellOptionsComponent } from '../gamecell-options/gamecell-options.component';
-
+import { WinsTracker } from '../wins-tracker';
 @Component({
   selector: 'app-gameboard',
   templateUrl: './gameboard.component.html',
@@ -17,20 +17,22 @@ export class GameboardComponent implements OnInit {
   gameboard = new GameBoard(
     1,
     [
-          [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8],
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8],
-          [0, 4, 8],
-          [6, 4, 2],
-        ],
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [6, 4, 2],
+    ],
       
      );
 
   hasPlayed=false;
   playerSelect = GameBoardCellOptions.UNK
+  winsTrackerX = new WinsTracker();
+  winsTrackerO = new WinsTracker();
 
   constructor() {}
 
@@ -44,6 +46,12 @@ export class GameboardComponent implements OnInit {
         turn.cellIndex[1],
         false
       )
+      if(turn.option == GameBoardCellOptions.X){
+        this.winsTrackerX.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
+      }
+      else {
+        this.winsTrackerO.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
+      }
       this.lastPlayed = this.turns[this.turns.length - 1];
       this.hasPlayed = false;
     }
@@ -60,6 +68,20 @@ export class GameboardComponent implements OnInit {
     this.lastPlayed = gameCellState
     this.turns.push(gameCellState)
     this.gameboard.setCellOption(gameCellState.option, gameCellState.cellIndex[0], gameCellState.cellIndex[1], true)
+    console.log(this.gameboard)
+    if(gameCellState.option == GameBoardCellOptions.X){
+      this.winsTrackerX.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1]);
+      if(this.winsTrackerX.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
+        console.log("Player X win")
+      }
+    }
+    else{
+      this.winsTrackerO.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1])
+      if(this.winsTrackerO.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
+        console.log("Player O win")
+      }
+    }
+
   }
 
   ngOnInit(): void {
