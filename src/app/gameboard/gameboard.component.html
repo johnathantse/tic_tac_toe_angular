@@ -4,7 +4,7 @@
     {{ turns[turns.length - 1].cellIndex }}
   </h2>
   <table class="gameboard" cellId="-1">
-    <tr *ngFor="let row of gameboard.getCells(); let row_idx = index">
+    <tr *ngFor="let row of gameboard.cells; let row_idx = index">
       <td *ngFor="let cell of row; let col_idx = index">
           <h1>{{ cell.option }}</h1>
         <app-gamecell-options

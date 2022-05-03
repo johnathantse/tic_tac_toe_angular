@@ -1,35 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { GameBoard, GameBoardCellOptions, GameCellState } from '../gameboard';
-import { GamecellOptionsComponent } from '../gamecell-options/gamecell-options.component';
+import { GameBoard} from '../gameboard';
+import { GameCellState } from "../GameCellState";
 import { WinsTracker } from '../wins-tracker';
+import { GameBoardCellOptions } from '../GameCellState';
 @Component({
   selector: 'app-gameboard',
   templateUrl: './gameboard.component.html',
   styleUrls: ['./gameboard.component.css'],
 })
 export class GameboardComponent implements OnInit {
-  lastPlayed: GameCellState = {
-    option: GameBoardCellOptions.UNK,
-    cellIndex: [-1, -1],
-    cellHasPlayed: false
-  };
+  lastPlayed = new GameCellState(
+    GameBoardCellOptions.UNK,
+    [-1, -1],
+    false
+  );
   turns: Array<GameCellState>;
-  gameboard = new GameBoard(
-    1,
-    [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [6, 4, 2],
-    ],
-      
-     );
+  gameboard = new GameBoard();
 
-  hasPlayed=false;
+  hasPlayed = false;
   playerSelect = GameBoardCellOptions.UNK
   winsTrackerX = new WinsTracker();
   winsTrackerO = new WinsTracker();
@@ -86,7 +74,7 @@ export class GameboardComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.gameboard)
-    console.log(this.gameboard.getCells()[0][0])
+    console.log(this.gameboard.cells[0][0])
     this.turns = [];
     this.turns.push(this.lastPlayed);
   }
