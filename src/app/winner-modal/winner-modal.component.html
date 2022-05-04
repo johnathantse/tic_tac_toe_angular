@@ -1,0 +1,14 @@
+<ng-template #content let-modal>
+  <div class="modal-head">
+    <h4>Winner</h4>
+  </div>
+  <div class="modal-body">Player {{ playerName }} wins</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">
+      close
+    </button>
+  </div>
+</ng-template>
+<p>player: {{ playerName }}</p>
+
+<button class="btn btn-outline-primary" (click)="open(content)">Open</button>

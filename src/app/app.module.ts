@@ -5,16 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameboardComponent } from './gameboard/gameboard.component';
 import { GamecellOptionsComponent } from './gamecell-options/gamecell-options.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { WinnerModalComponent } from './winner-modal/winner-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameboardComponent,
-    GamecellOptionsComponent
+    GamecellOptionsComponent,
+    WinnerModalComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
