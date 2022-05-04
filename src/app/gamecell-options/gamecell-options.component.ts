@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { GameCellState, GameBoardCellOptions } from "../GameCellState";
+import { GameCellState, GameBoardCellOptions } from '../GameCellState';
 
 @Component({
   selector: 'app-gamecell-options',
@@ -8,7 +8,7 @@ import { GameCellState, GameBoardCellOptions } from "../GameCellState";
 })
 export class GamecellOptionsComponent implements OnInit {
   playerOptions = GameBoardCellOptions;
-  
+
   @Input() public lastPlayed: GameCellState;
   @Input() public defaultSelected: GameBoardCellOptions;
   @Input() public gameCell: GameCellState;
@@ -20,7 +20,11 @@ export class GamecellOptionsComponent implements OnInit {
   ngOnInit(): void {}
 
   public onOptionSelected(event: any) {
-    let newLastPlayed = new GameCellState(event.target.value, this.gameCell.cellIndex, true, this.gameCell.id);
-    this.lastPlayedEmitter.emit(newLastPlayed)
+    let newLastPlayed = new GameCellState(
+      event.target.value,
+      true,
+      this.gameCell.id
+    );
+    this.lastPlayedEmitter.emit(newLastPlayed);
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameBoard} from '../gameboard';
-import { GameCellState } from "../GameCellState";
-import { WinsTracker } from '../wins-tracker';
+import { GameBoard } from '../gameboard';
+import { GameCellState } from '../GameCellState';
 import { GameBoardCellOptions } from '../GameCellState';
 @Component({
   selector: 'app-gameboard',
@@ -9,39 +8,30 @@ import { GameBoardCellOptions } from '../GameCellState';
   styleUrls: ['./gameboard.component.css'],
 })
 export class GameboardComponent implements OnInit {
-  lastPlayed = new GameCellState(
-    GameBoardCellOptions.UNK,
-    [-1, -1],
-    false,
-    -1
-  );
+  lastPlayed = new GameCellState(GameBoardCellOptions.UNK, false, -1);
 
   turns: Array<GameCellState>;
-  gameboard = new GameBoard(
-    [[0,1,2],[3,4,5],[6,7,8],
-    [0,3,6],[1,4,7],[2,5,8],
-    [0,4,8], [6,4,2]]
-
-  );
+  gameboard = new GameBoard([
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [6, 4, 2],
+  ]);
 
   hasPlayed = false;
-  playerSelect = GameBoardCellOptions.UNK
-  winsTrackerX = new WinsTracker();
-  winsTrackerO = new WinsTracker();
+  playerSelect = GameBoardCellOptions.UNK;
 
   constructor() {}
 
   undo() {
-    if(this.turns.length > 0){
+    if (this.turns.length > 0) {
       let turn: GameCellState = this.turns.pop()!;
-      console.log(turn)
-      this.gameboard.setCellOption(GameBoardCellOptions.UNK, turn.id, false)
-      // if(turn.option == GameBoardCellOptions.X){
-      //   this.winsTrackerX.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
-      // }
-      // else {
-      //   this.winsTrackerO.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
-      // }
+      console.log(turn);
+      this.gameboard.setCellOption(GameBoardCellOptions.UNK, turn.id, false);
       this.lastPlayed = this.turns[this.turns.length - 1];
       this.hasPlayed = false;
     }
@@ -52,43 +42,31 @@ export class GameboardComponent implements OnInit {
     return this.turns[this.turns.length - 1].option;
   }
 
-  public updateGameState(gameCellState: GameCellState){
-    console.log('updating game state')
-    this.hasPlayed=true;
-    this.lastPlayed = gameCellState
-    this.turns.push(gameCellState)
-    this.gameboard.setCellOption(gameCellState.option, gameCellState.id, true)
-    console.log(gameCellState)
-    this.calculateWin()
-    // if(gameCellState.option == GameBoardCellOptions.X){
-    //   this.winsTrackerX.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1]);
-    //   if(this.winsTrackerX.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
-    //     console.log("Player X win")
-    //   }
-    // }
-    // else{
-    //   this.winsTrackerO.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1])
-    //   if(this.winsTrackerO.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
-    //     console.log("Player O win")
-    //   }
-    // }
-
+  public updateGameState(gameCellState: GameCellState) {
+    console.log('updating game state');
+    this.hasPlayed = true;
+    this.lastPlayed = gameCellState;
+    this.turns.push(gameCellState);
+    this.gameboard.setCellOption(gameCellState.option, gameCellState.id, true);
+    console.log(gameCellState);
+    this.calculateWin();
   }
 
-  public calculateWin(){
+  public calculateWin() {
     let cells = this.gameboard.cells;
-    for(let winCond of this.gameboard.winIndices){
-      if(cells[winCond[0]].option == cells[winCond[1]].option 
-        && cells[winCond[1]].option == cells[winCond[2]].option 
-        && cells[winCond[0]].option != "*"){
-          console.log (`Player ${cells[winCond[0]].option} wins`)
-
+    for (let winCond of this.gameboard.winIndices) {
+      if (
+        cells[winCond[0]].option == cells[winCond[1]].option &&
+        cells[winCond[1]].option == cells[winCond[2]].option &&
+        cells[winCond[0]].option != '*'
+      ) {
+        console.log(`Player ${cells[winCond[0]].option} wins`);
       }
     }
   }
 
   ngOnInit(): void {
-    console.log(this.gameboard)
+    console.log(this.gameboard);
     this.turns = [];
     this.turns.push(this.lastPlayed);
   }

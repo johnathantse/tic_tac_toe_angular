@@ -4,16 +4,18 @@
     {{ turns[turns.length - 1].id }}
   </h2>
   <section class="gameboard" cellId="-1">
-    <div class="cell-container "*ngFor="let cell of gameboard.cells; let row_idx = index">
-
-          <h1>{{ cell.option }}</h1>
-        <app-gamecell-options
-          (lastPlayedEmitter)="updateGameState($event)"
-          [lastPlayed]="lastPlayed"
-          [defaultSelected]="cell.option"
-          [gameCell]="cell"
-        ></app-gamecell-options>
+    <div
+      class="cell-container"
+      *ngFor="let cell of gameboard.cells; let row_idx = index"
+    >
+      <h1>{{ cell.option }}</h1>
+      <app-gamecell-options
+        (lastPlayedEmitter)="updateGameState($event)"
+        [lastPlayed]="lastPlayed"
+        [defaultSelected]="cell.option"
+        [gameCell]="cell"
+      ></app-gamecell-options>
     </div>
   </section>
-  <button [disabled]="hasPlayed==false" (click)="undo()">Undo</button>
+  <button [disabled]="hasPlayed == false" (click)="undo()">Undo</button>
 </div>

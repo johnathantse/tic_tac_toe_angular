@@ -1,27 +1,28 @@
 export enum GameBoardCellOptions {
-    UNK = '*',
-    X = 'X',
-    O = 'O',
-  }
-  
-  export namespace GameBoardCellOptions {
-    export function getValues(): any {
-      return Object.values(GameBoardCellOptions).filter(
-        (option) => typeof option == 'string'
-      );
-    }
-  }
+  UNK = '*',
+  X = 'X',
+  O = 'O',
+}
 
-  
+export namespace GameBoardCellOptions {
+  export function getValues(): any {
+    return Object.values(GameBoardCellOptions).filter(
+      (option) => typeof option == 'string'
+    );
+  }
+}
+
 export class GameCellState {
   private _option: GameBoardCellOptions;
-  private _cellIndex: [number, number];
   private _cellHasPlayed: boolean;
-  public id: number;
+  private _id: number;
 
-  constructor(option: GameBoardCellOptions, cellIndex: [number, number], cellHasPlayed: boolean, id:number) {
+  constructor(
+    option: GameBoardCellOptions,
+    cellHasPlayed: boolean,
+    id: number
+  ) {
     this.option = option;
-    this.cellIndex = cellIndex;
     this.cellHasPlayed = cellHasPlayed;
     this.id = id;
   }
@@ -33,14 +34,6 @@ export class GameCellState {
     this._option = option;
   }
 
-  public get cellIndex(): [number, number] {
-    return this._cellIndex;
-  }
-
-  public set cellIndex(value: [number, number]) {
-    this._cellIndex = value;
-  }
-
   public get cellHasPlayed(): boolean {
     return this._cellHasPlayed;
   }
@@ -49,4 +42,10 @@ export class GameCellState {
     this._cellHasPlayed = value;
   }
 
+  public get id(): number {
+    return this._id;
+  }
+  public set id(value: number) {
+    this._id = value;
+  }
 }
