@@ -17,11 +17,13 @@ export class GameCellState {
   private _option: GameBoardCellOptions;
   private _cellIndex: [number, number];
   private _cellHasPlayed: boolean;
+  public id: number;
 
-  constructor(option: GameBoardCellOptions, cellIndex: [number, number], cellHasPlayed: boolean) {
+  constructor(option: GameBoardCellOptions, cellIndex: [number, number], cellHasPlayed: boolean, id:number) {
     this.option = option;
     this.cellIndex = cellIndex;
     this.cellHasPlayed = cellHasPlayed;
+    this.id = id;
   }
 
   public get option() {

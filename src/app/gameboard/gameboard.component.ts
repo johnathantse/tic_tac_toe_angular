@@ -12,10 +12,17 @@ export class GameboardComponent implements OnInit {
   lastPlayed = new GameCellState(
     GameBoardCellOptions.UNK,
     [-1, -1],
-    false
+    false,
+    -1
   );
+
   turns: Array<GameCellState>;
-  gameboard = new GameBoard();
+  gameboard = new GameBoard(
+    [[0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8], [6,4,2]]
+
+  );
 
   hasPlayed = false;
   playerSelect = GameBoardCellOptions.UNK
@@ -28,18 +35,13 @@ export class GameboardComponent implements OnInit {
     if(this.turns.length > 0){
       let turn: GameCellState = this.turns.pop()!;
       console.log(turn)
-      this.gameboard.setCellOption(
-        GameBoardCellOptions.UNK, 
-        turn.cellIndex[0], 
-        turn.cellIndex[1],
-        false
-      )
-      if(turn.option == GameBoardCellOptions.X){
-        this.winsTrackerX.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
-      }
-      else {
-        this.winsTrackerO.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
-      }
+      this.gameboard.setCellOption(GameBoardCellOptions.UNK, turn.id, false)
+      // if(turn.option == GameBoardCellOptions.X){
+      //   this.winsTrackerX.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
+      // }
+      // else {
+      //   this.winsTrackerO.undoTurn(turn.cellIndex[0], turn.cellIndex[1])
+      // }
       this.lastPlayed = this.turns[this.turns.length - 1];
       this.hasPlayed = false;
     }
@@ -55,26 +57,38 @@ export class GameboardComponent implements OnInit {
     this.hasPlayed=true;
     this.lastPlayed = gameCellState
     this.turns.push(gameCellState)
-    this.gameboard.setCellOption(gameCellState.option, gameCellState.cellIndex[0], gameCellState.cellIndex[1], true)
-    console.log(this.gameboard)
-    if(gameCellState.option == GameBoardCellOptions.X){
-      this.winsTrackerX.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1]);
-      if(this.winsTrackerX.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
-        console.log("Player X win")
-      }
-    }
-    else{
-      this.winsTrackerO.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1])
-      if(this.winsTrackerO.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
-        console.log("Player O win")
-      }
-    }
+    this.gameboard.setCellOption(gameCellState.option, gameCellState.id, true)
+    console.log(gameCellState)
+    this.calculateWin()
+    // if(gameCellState.option == GameBoardCellOptions.X){
+    //   this.winsTrackerX.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1]);
+    //   if(this.winsTrackerX.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
+    //     console.log("Player X win")
+    //   }
+    // }
+    // else{
+    //   this.winsTrackerO.addTurn(gameCellState.cellIndex[0], gameCellState.cellIndex[1])
+    //   if(this.winsTrackerO.calculateWin(gameCellState.cellIndex[0], gameCellState.cellIndex[1])){
+    //     console.log("Player O win")
+    //   }
+    // }
 
+  }
+
+  public calculateWin(){
+    let cells = this.gameboard.cells;
+    for(let winCond of this.gameboard.winIndices){
+      if(cells[winCond[0]].option == cells[winCond[1]].option 
+        && cells[winCond[1]].option == cells[winCond[2]].option 
+        && cells[winCond[0]].option != "*"){
+          console.log (`Player ${cells[winCond[0]].option} wins`)
+
+      }
+    }
   }
 
   ngOnInit(): void {
     console.log(this.gameboard)
-    console.log(this.gameboard.cells[0][0])
     this.turns = [];
     this.turns.push(this.lastPlayed);
   }

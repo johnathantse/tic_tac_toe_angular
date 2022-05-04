@@ -2,7 +2,7 @@
   <!-- <p>
     {{ turns[turns.length - 1].option }} {{ turns[turns.length - 1].cellIndex }}
   </p> -->
-  <p>{{ gameCell.cellIndex }}</p>
+  <p>{{ gameCell.id }}</p>
   <select formControlName="cell" [disabled]="gameCell.cellHasPlayed">
     <option
       *ngFor="let playerOption of playerOptions.getValues()"

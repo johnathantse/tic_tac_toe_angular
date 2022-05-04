@@ -1,23 +1,23 @@
 import { GameCellState, GameBoardCellOptions } from "./GameCellState";
 
 export class GameBoard {
-  private _cells: Array<Array<GameCellState>>;
+  // private _cells: Array<Array<GameCellState>>;
+  private _cells: Array<GameCellState>;
+  winIndices: Array<[number, number, number]>;
 
-  constructor() {
+  constructor(winIndices: Array<[number, number, number]>) {
     console.log("setting up gameboard")
-    this._cells = [];
-    const size = [0, 1, 2];
-    for (const index of size) {
-      let row = [];
-      for (const index2 of size) {
-        let cell = new GameCellState(
-          GameBoardCellOptions.UNK,
-          [index, index2],
-          false
-        );
-        row.push(cell);
-      }
-    this._cells.push(row);
+    this.winIndices = winIndices
+    this._cells =[];
+    
+    for (let i=0; i<9; i++){
+      let cell = new GameCellState(
+        GameBoardCellOptions.UNK,
+        [-2, -2],
+        false,
+        i
+      )
+      this._cells.push(cell)
     }
   }
 
@@ -25,8 +25,8 @@ export class GameBoard {
     return this._cells
   }
   
-  public setCellOption(option: GameBoardCellOptions, rowIndex:number, colIndex:number, playStatus: boolean){
-    this._cells[rowIndex][colIndex].option = option
-    this._cells[rowIndex][colIndex].cellHasPlayed = playStatus
+  public setCellOption(option: GameBoardCellOptions, index: number, playStatus: boolean){
+    this._cells[index].option = option;
+    this._cells[index].cellHasPlayed = playStatus;
   }
 }

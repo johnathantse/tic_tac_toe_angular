@@ -1,11 +1,11 @@
 <div>
   <h2>
     Last Played: {{ getLastTurnOption() }} at index:
-    {{ turns[turns.length - 1].cellIndex }}
+    {{ turns[turns.length - 1].id }}
   </h2>
-  <table class="gameboard" cellId="-1">
-    <tr *ngFor="let row of gameboard.cells; let row_idx = index">
-      <td *ngFor="let cell of row; let col_idx = index">
+  <section class="gameboard" cellId="-1">
+    <div class="cell-container "*ngFor="let cell of gameboard.cells; let row_idx = index">
+
           <h1>{{ cell.option }}</h1>
         <app-gamecell-options
           (lastPlayedEmitter)="updateGameState($event)"
@@ -13,8 +13,7 @@
           [defaultSelected]="cell.option"
           [gameCell]="cell"
         ></app-gamecell-options>
-      </td>
-    </tr>
-  </table>
+    </div>
+  </section>
   <button [disabled]="hasPlayed==false" (click)="undo()">Undo</button>
 </div>

@@ -20,7 +20,7 @@ export class GamecellOptionsComponent implements OnInit {
   ngOnInit(): void {}
 
   public onOptionSelected(event: any) {
-    let newLastPlayed = new GameCellState(event.target.value, this.gameCell.cellIndex, true);
+    let newLastPlayed = new GameCellState(event.target.value, this.gameCell.cellIndex, true, this.gameCell.id);
     this.lastPlayedEmitter.emit(newLastPlayed)
   }
 }
