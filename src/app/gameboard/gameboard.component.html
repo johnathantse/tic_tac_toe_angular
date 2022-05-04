@@ -18,4 +18,7 @@
     </div>
   </section>
   <button [disabled]="hasPlayed == false" (click)="undo()">Undo</button>
+  <div *ngIf="winner != null">
+    <app-winner-modal [playerName]="winner"></app-winner-modal>
+  </div>
 </div>

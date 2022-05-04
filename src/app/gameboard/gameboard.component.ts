@@ -23,7 +23,7 @@ export class GameboardComponent implements OnInit {
   ]);
 
   hasPlayed = false;
-  playerSelect = GameBoardCellOptions.UNK;
+  winner?: GameBoardCellOptions;
 
   constructor() {}
 
@@ -60,7 +60,8 @@ export class GameboardComponent implements OnInit {
         cells[winCond[1]].option == cells[winCond[2]].option &&
         cells[winCond[0]].option != '*'
       ) {
-        console.log(`Player ${cells[winCond[0]].option} wins`);
+        this.winner = cells[winCond[0]].option;
+        console.log(`Player ${this.winner} wins`);
       }
     }
   }
