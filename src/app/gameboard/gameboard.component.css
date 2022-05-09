@@ -17,5 +17,6 @@ tr td {
 .cell-container {
     flex: 0 0 32%;
     border: 1px solid black;
+    height: 100px;
  }
  

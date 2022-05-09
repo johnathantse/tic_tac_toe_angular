@@ -4,15 +4,9 @@ export class GameBoard {
   private _cells: Array<GameCellState>;
   winIndices: Array<[number, number, number]>;
 
-  constructor(winIndices: Array<[number, number, number]>) {
-    console.log('setting up gameboard');
+  constructor(winIndices: Array<[number, number, number]>, cells: Array<GameCellState>) {
     this.winIndices = winIndices;
-    this._cells = [];
-
-    for (let i = 0; i < 9; i++) {
-      let cell = new GameCellState(GameBoardCellOptions.UNK, false, i);
-      this._cells.push(cell);
-    }
+    this._cells = cells;
   }
 
   public get cells() {

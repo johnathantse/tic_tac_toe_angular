@@ -1,5 +1,5 @@
 export enum GameBoardCellOptions {
-  UNK = '*',
+  UNK = '',
   X = 'X',
   O = 'O',
 }
