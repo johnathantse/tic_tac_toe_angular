@@ -20,19 +20,16 @@ export class GameboardComponent implements OnInit {
   constructor() {}
 
   undo() {
-    if (this.turns.length > 0) {
+    if (this.turns.length > 1) {
       let turn: GameCellState = this.turns.pop()!;
       console.log(turn);
       this.gameboard.setCellOption(GameBoardCellOptions.UNK, turn.id, false);
       this.lastPlayed = this.turns[this.turns.length - 1];
-      this.hasPlayed = false;
       this.turnsPlayed--;
+      if (this.turns.length <= 1){
+        this.hasPlayed = false;
+      }
     }
-  }
-
-  public getLastTurnOption() {
-    console.log('retrieving last turn option');
-    return this.turns[this.turns.length - 1].option;
   }
 
   public updateGameState(gameCellState: GameCellState) {
@@ -42,7 +39,7 @@ export class GameboardComponent implements OnInit {
     this.turns.push(gameCellState);
     this.turnsPlayed++;
     this.gameboard.setCellOption(gameCellState.option, gameCellState.id, true);
-    console.log(gameCellState);
+    console.log(this.turns);
     if (!this.calculateWin()) {
       this.checkCats();
     }
