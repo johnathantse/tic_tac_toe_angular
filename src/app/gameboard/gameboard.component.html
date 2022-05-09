@@ -19,10 +19,15 @@
   </section>
   <button [disabled]="hasPlayed == false" (click)="undo()">Undo</button>
   <div *ngIf="winner != null">
-    <app-winner-modal
+    <app-game-end-modal
       [playerName]="winner"
       (resetGameEmitter)="initializeGameBoard()"
-    ></app-winner-modal>
+    ></app-game-end-modal>
   </div>
-  <div *ngIf="tieGame == true">Tie Game</div>
+  <div *ngIf="tieGame == true">
+    <app-game-end-modal
+      [tieGame]="true"
+      (resetGameEmitter)="initializeGameBoard()"
+    ></app-game-end-modal>
+  </div>
 </div>

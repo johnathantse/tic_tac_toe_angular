@@ -10,7 +10,6 @@ import { GameBoard } from '../gameboard';
 })
 export class GameboardComponent implements OnInit {
   lastPlayed: GameCellState;
-
   turns: Array<GameCellState>;
   hasPlayed: boolean;
   winner?: GameBoardCellOptions | null;
@@ -44,8 +43,9 @@ export class GameboardComponent implements OnInit {
     this.turnsPlayed++;
     this.gameboard.setCellOption(gameCellState.option, gameCellState.id, true);
     console.log(gameCellState);
-    this.calculateWin();
-    this.checkCats();
+    if (!this.calculateWin()) {
+      this.checkCats();
+    }
   }
 
   public calculateWin() {
@@ -57,15 +57,16 @@ export class GameboardComponent implements OnInit {
         cells[winCond[0]].option != GameBoardCellOptions.UNK
       ) {
         this.winner = cells[winCond[0]].option;
-        console.log(`Player ${this.winner} wins`);
+        return true;
       }
     }
+    return false;
   }
 
   public checkCats() {
     if (this.turnsPlayed >= 9) {
       console.log('Cats game');
-      this.tieGame = false;
+      this.tieGame = true;
     }
   }
 
@@ -76,6 +77,7 @@ export class GameboardComponent implements OnInit {
     this.hasPlayed = false;
     this.winner = null;
     this.turnsPlayed = 0;
+    this.tieGame = false;
     let cells = [];
     for (let i = 0; i < 9; i++) {
       let cell = new GameCellState(GameBoardCellOptions.UNK, false, i);

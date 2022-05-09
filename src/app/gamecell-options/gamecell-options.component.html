@@ -1,9 +1,9 @@
 <div class="gamecell">
-  <select formControlName="cell" [disabled]="gameCell.cellHasPlayed">
+  <select formControlName="cell" [hidden]="gameCell.cellHasPlayed">
     <option
       *ngFor="let playerOption of playerOptions.getValues()"
       (click)="onOptionSelected($event)"
-      [disabled]="
+      [hidden]="
         playerOption == lastPlayed.option || playerOption == playerOptions.UNK
       "
       [selected]="playerOption == defaultSelected"

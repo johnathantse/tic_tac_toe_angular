@@ -11,14 +11,15 @@ import {
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-winner-modal',
-  templateUrl: './winner-modal.component.html',
-  styleUrls: ['./winner-modal.component.css'],
+  selector: 'app-game-end-modal',
+  templateUrl: './game-end-modal.component.html',
+  styleUrls: ['./game-end-modal.component.css'],
 })
 export class WinnerModalComponent implements OnInit, AfterViewInit {
   constructor(private modalService: NgbModal) {}
 
   @Input() playerName?: string;
+  @Input() tieGame?: boolean;
   @Output() public resetGameEmitter = new EventEmitter();
   @ViewChild('content') contentRef: ElementRef;
   private _modalRef: NgbModalRef;

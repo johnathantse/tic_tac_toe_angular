@@ -6,21 +6,17 @@ import { AppComponent } from './app.component';
 import { GameboardComponent } from './gameboard/gameboard.component';
 import { GamecellOptionsComponent } from './gamecell-options/gamecell-options.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { WinnerModalComponent } from './winner-modal/winner-modal.component';
+import { WinnerModalComponent } from './game-end-modal/game-end-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameboardComponent,
     GamecellOptionsComponent,
-    WinnerModalComponent
+    WinnerModalComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

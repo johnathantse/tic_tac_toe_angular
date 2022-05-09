@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WinnerModalComponent } from './winner-modal.component';
+import { WinnerModalComponent } from './game-end-modal.component';
 
 describe('WinnerModalComponent', () => {
   let component: WinnerModalComponent;
