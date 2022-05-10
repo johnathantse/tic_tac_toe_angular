@@ -1,22 +1,49 @@
-tr td {
-    border: 1px solid black;
-    height: 100px;
+* {
+    box-sizing: border-box;
 }
 
-.gameboard {
-    width: 600px;
+.row {
     display: flex;
-    justify-content: space-evenly;
-    align-content: space-between;
-    align-items: center;
-    margin: 7% auto 50px auto; 
-    flex-wrap: wrap;
-    border: 1px solid black;
+    justify-content: center;
 }
+
+
+.container {
+    width: 50%;
+    min-height: 150px;
+    /* height: 150px; */
+}
+
 
 .cell-container {
+    display: flex;
     flex: 0 0 32%;
     border: 1px solid black;
-    height: 100px;
+    min-height: 150px;
+    justify-content: center;
+
+}
+
+.cellDisplayX, .cellDisplayO{
+     font-size: 64px;
+     padding-top: 25px;
+     font-family: Georgia, 'Times New Roman', Times, serif;
+
  }
- 
+
+.cellDisplayX{
+   color: forestgreen;
+ }
+
+.cellDisplayO{
+     color: firebrick;
+ }
+
+h1 {
+     text-align: center;
+ }
+
+
+ .undoDiv{
+     padding-top: 25px;
+ }

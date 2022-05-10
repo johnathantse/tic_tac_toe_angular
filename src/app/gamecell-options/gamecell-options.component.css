@@ -1,4 +1,7 @@
-.gamecell {
-    margin-left: auto;
-    margin-right: auto;
+
+
+.cell {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
 }

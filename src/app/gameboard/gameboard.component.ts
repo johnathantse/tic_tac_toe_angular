@@ -33,13 +33,11 @@ export class GameboardComponent implements OnInit {
   }
 
   public updateGameState(gameCellState: GameCellState) {
-    console.log('updating game state');
     this.hasPlayed = true;
     this.lastPlayed = gameCellState;
     this.turns.push(gameCellState);
     this.turnsPlayed++;
     this.gameboard.setCellOption(gameCellState.option, gameCellState.id, true);
-    console.log(this.turns);
     if (!this.calculateWin()) {
       this.checkCats();
     }
