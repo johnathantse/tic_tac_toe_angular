@@ -1,9 +1,9 @@
-<div class="container py-3 my-3">
-  <h1>Tic Tac Toe</h1>
-  <div class="row">
+<h1>Tic Tac Toe</h1>
+<div class="container board py-3 my-3">
+  <!-- <div class="row"> -->
     <div
       class="col col-md-4 cell-container"
-      *ngFor="let cell of gameboard.cells; let row_idx = index"
+      *ngFor="let cell of gameboard.cells"
     >
       <h1 [ngClass]="cell.option == 'X' ? 'cellDisplayX' : 'cellDisplayO'">{{ cell.option }}</h1>
       <app-gamecell-options
@@ -13,7 +13,7 @@
         [gameCell]="cell"
       ></app-gamecell-options>
     </div>
-  </div>
+  <!-- </div> -->
   <div class="undoDiv">
   <button class="btn btn-primary" [disabled]="hasPlayed == false" (click)="undo()">Undo</button>
 </div>

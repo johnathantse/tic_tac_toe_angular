@@ -8,19 +8,30 @@
 }
 
 
-.container {
-    width: 50%;
-    min-height: 150px;
-    /* height: 150px; */
+.board {
+    /* width: 50%;
+    min-height: 150px; */
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(3, auto);
+    /* grid-template-rows: repeat(3, auto); */
 }
 
 
 .cell-container {
-    display: flex;
+    /* display: flex;
     flex: 0 0 32%;
     border: 1px solid black;
     min-height: 150px;
-    justify-content: center;
+    justify-content: center; */
+    /* display: flex; */
+    /* flex: 0 0, 32%; */
+    width: 150px;
+    height: 150px;
+    border: 1px solid black
 
 }
 
