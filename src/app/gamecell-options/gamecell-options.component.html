@@ -1,6 +1,11 @@
- <div class="cell"> 
-  <select class="form-select" formControlName="cell" [hidden]="gameCell.cellHasPlayed">
-    <option id="optionDropdown"
+<div class="cell">
+  <select
+    class="form-select form-select-lg"
+    formControlName="cell"
+    [hidden]="gameCell.cellHasPlayed"
+  >
+    <option
+      id="optionDropdown"
       *ngFor="let playerOption of playerOptions.getValues()"
       (click)="onOptionSelected($event)"
       [hidden]="

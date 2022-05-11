@@ -1,34 +1,10 @@
-/* * {
-    box-sizing: border-box;
-} */
-
-/* .row {
-    display: flex;
-    justify-content: center;
-} */
-
-
 .board {
-    /* width: 50%;
-    min-height: 150px; */
-    /* width: 100vw;
-    /* display: grid; */
-    /* width: 50vw; */
-    /* min-height: 400px;  */
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
-.my-row {
-    border: 1px solid red;
-}
-
-
 .cell-container {
-    /* justify-content: center; */
     border: 1px solid black;
-    /* padding-top: 30%; */
-
 }
 
 .cellDisplayX, .cellDisplayO{
@@ -49,20 +25,10 @@ h1 {
      text-align: center;
  }
 
-.cell-display{
-    /* margin-top:30%; */
-    /* border: 1px solid blue;
-    display: flex;
-    vertical-align: middle;
-    align-items: center; */
-
-}
-
-.option-display{
-    /* margin-top: 30% */
-}
-
  .undo-div{
-     padding-top: 25px;
-     border: 1px green;
+     margin-top: 25px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
  }
+

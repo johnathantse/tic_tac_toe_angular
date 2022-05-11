@@ -31,7 +31,11 @@ export class WinnerModalComponent implements OnInit, AfterViewInit {
   }
 
   openModal() {
-    this._modalRef = this.modalService.open(this.contentRef, {backdrop: 'static', keyboard: false});
+    this._modalRef = this.modalService.open(this.contentRef, {
+      backdrop: 'static',
+      keyboard: false,
+      centered: true,
+    });
   }
 
   public closeModal() {
