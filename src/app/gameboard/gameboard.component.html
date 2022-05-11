@@ -1,21 +1,27 @@
-<h1>Tic Tac Toe</h1>
-<div class="container board py-3 my-3">
-  <!-- <div class="row"> -->
+
+<div class="container">
+  <h1>Tic Tac Toe</h1>
+  <div class="row row-cols-3 align-items-center">
     <div
-      class="col col-md-4 cell-container"
+      class="col cell-container"
       *ngFor="let cell of gameboard.cells"
     >
-      <h1 [ngClass]="cell.option == 'X' ? 'cellDisplayX' : 'cellDisplayO'">{{ cell.option }}</h1>
-      <app-gamecell-options
-        (lastPlayedEmitter)="updateGameState($event)"
-        [lastPlayed]="lastPlayed"
-        [defaultSelected]="cell.option"
-        [gameCell]="cell"
-      ></app-gamecell-options>
+      <div class="ratio ratio-1x1 cell-display">
+        <div class="option-display d-flex align-items-center justify-content-center">
+        <h1 [ngClass]="cell.option == 'X' ? 'cellDisplayX' : 'cellDisplayO'">{{ cell.option }}</h1>
+        <app-gamecell-options
+          (lastPlayedEmitter)="updateGameState($event)"
+          [lastPlayed]="lastPlayed"
+          [defaultSelected]="cell.option"
+          [gameCell]="cell"
+        ></app-gamecell-options>
+      </div>
+      </div>
     </div>
-  <!-- </div> -->
-  <div class="undoDiv">
-  <button class="btn btn-primary" [disabled]="hasPlayed == false" (click)="undo()">Undo</button>
+  </div>
+  <div class="undo-div">
+    <button class="btn btn-primary" [disabled]="hasPlayed == false" (click)="undo()">Undo</button>
+  </div>
 </div>
   <div *ngIf="winner != null">
     <app-game-end-modal
@@ -29,4 +35,4 @@
       (resetGameEmitter)="initializeGameBoard()"
     ></app-game-end-modal>
   </div>
-</div>
+

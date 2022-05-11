@@ -1,43 +1,38 @@
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 
-.row {
+/* .row {
     display: flex;
     justify-content: center;
-}
+} */
 
 
 .board {
     /* width: 50%;
     min-height: 150px; */
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    grid-template-columns: repeat(3, auto);
-    /* grid-template-rows: repeat(3, auto); */
+    /* width: 100vw;
+    /* display: grid; */
+    /* width: 50vw; */
+    /* min-height: 400px;  */
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.my-row {
+    border: 1px solid red;
 }
 
 
 .cell-container {
-    /* display: flex;
-    flex: 0 0 32%;
+    /* justify-content: center; */
     border: 1px solid black;
-    min-height: 150px;
-    justify-content: center; */
-    /* display: flex; */
-    /* flex: 0 0, 32%; */
-    width: 150px;
-    height: 150px;
-    border: 1px solid black
+    /* padding-top: 30%; */
 
 }
 
 .cellDisplayX, .cellDisplayO{
      font-size: 64px;
-     padding-top: 25px;
      font-family: Georgia, 'Times New Roman', Times, serif;
 
  }
@@ -54,7 +49,20 @@ h1 {
      text-align: center;
  }
 
+.cell-display{
+    /* margin-top:30%; */
+    /* border: 1px solid blue;
+    display: flex;
+    vertical-align: middle;
+    align-items: center; */
 
- .undoDiv{
+}
+
+.option-display{
+    /* margin-top: 30% */
+}
+
+ .undo-div{
      padding-top: 25px;
+     border: 1px green;
  }
