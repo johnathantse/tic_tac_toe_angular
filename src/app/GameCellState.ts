@@ -30,6 +30,7 @@ export class GameCellState {
   public get option() {
     return this._option;
   }
+
   public set option(option: GameBoardCellOptions) {
     this._option = option;
   }
@@ -47,5 +48,14 @@ export class GameCellState {
   }
   public set id(value: number) {
     this._id = value;
+  }
+
+  public toJSON(): Object {
+    return {
+      option: this._option,
+      cellHasPlayed: this._cellHasPlayed,
+      id: this._id
+
+    }
   }
 }
