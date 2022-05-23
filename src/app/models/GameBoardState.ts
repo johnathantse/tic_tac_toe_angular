@@ -7,9 +7,10 @@ export class GameBoardState {
   private _hasPlayed: boolean;
   private _winner?: GameBoardCellOptions | null | undefined;
   private _tieGame: boolean;
-  private _gameboard: GameBoard;
   private _cells: Array<GameCellState>;
   private _turnsPlayed: number;
+
+  constructor() {}
 
   public toJSON(): Object {
     return {
@@ -69,14 +70,6 @@ export class GameBoardState {
 
   public set tieGame(value: boolean) {
     this._tieGame = value;
-  }
-
-  public get gameboard(): GameBoard {
-    return this._gameboard;
-  }
-
-  public set gameboard(value: GameBoard) {
-    this._gameboard = value;
   }
 
   public get turnsPlayed(): number {

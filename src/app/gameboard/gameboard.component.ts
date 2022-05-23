@@ -10,27 +10,35 @@ import { GameBoardState } from '../models/GameBoardState';
   styleUrls: ['./gameboard.component.css'],
 })
 export class GameboardComponent implements OnInit {
-  // lastPlayed: GameCellState;
-  // turns: Array<GameCellState>;
-  // hasPlayed: boolean;
-  // winner?: GameBoardCellOptions | null;
-  // tieGame: boolean;
-  // gameboard: GameBoard;
-  // turnsPlayed: number;
-
   gameBoardState: GameBoardState;
+  winIndices = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [6, 4, 2],
+  ];
 
   constructor(private _gameboardService: GameboardService) {}
 
-  undo() {
+  public setCellOption(
+    cell: GameCellState,
+    option: GameBoardCellOptions,
+    playStatus: boolean
+  ) {
+    cell.option = option;
+    cell.cellHasPlayed = playStatus;
+  }
+
+  public undo() {
     if (this.gameBoardState.turns.length > 1) {
       let turn: GameCellState = this.gameBoardState.turns.pop()!;
       console.log(turn);
-      this.gameBoardState.gameboard.setCellOption(
-        GameBoardCellOptions.UNK,
-        turn.id,
-        false
-      );
+      let cell = this.gameBoardState.cells[turn.id];
+      this.setCellOption(cell, GameBoardCellOptions.UNK, false);
       this.gameBoardState.lastPlayed =
         this.gameBoardState.turns[this.gameBoardState.turns.length - 1];
       this.gameBoardState.turnsPlayed--;
@@ -45,11 +53,8 @@ export class GameboardComponent implements OnInit {
     this.gameBoardState.lastPlayed = gameCellState;
     this.gameBoardState.turns.push(gameCellState);
     this.gameBoardState.turnsPlayed++;
-    this.gameBoardState.gameboard.setCellOption(
-      gameCellState.option,
-      gameCellState.id,
-      true
-    );
+    let cell = this.gameBoardState.cells[gameCellState.id];
+    this.setCellOption(cell, gameCellState.option, true);
     console.log(JSON.stringify(this.gameBoardState));
     if (!this.calculateWin()) {
       this.checkCats();
@@ -57,8 +62,8 @@ export class GameboardComponent implements OnInit {
   }
 
   public calculateWin() {
-    let cells = this.gameBoardState.gameboard.cells;
-    for (let winCond of this.gameBoardState.gameboard.winIndices) {
+    let cells = this.gameBoardState.cells;
+    for (let winCond of this.winIndices) {
       if (
         cells[winCond[0]].option == cells[winCond[1]].option &&
         cells[winCond[1]].option == cells[winCond[2]].option &&
@@ -96,19 +101,17 @@ export class GameboardComponent implements OnInit {
       let cell = new GameCellState(GameBoardCellOptions.UNK, false, i);
       cells.push(cell);
     }
-    this.gameBoardState.gameboard = new GameBoard(
-      [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [6, 4, 2],
-      ],
-      cells
-    );
+    this.gameBoardState.cells = cells;
+  }
+
+  confirmLoad() {
+    if (this.gameBoardState.hasPlayed == true) {
+      if (confirm('Are you sure you want to load?')) {
+        this.loadGame();
+      }
+    } else {
+      this.loadGame();
+    }
   }
 
   saveGame() {
@@ -121,18 +124,16 @@ export class GameboardComponent implements OnInit {
   loadGame() {
     this._gameboardService
       .loadGame()
-      .subscribe((loadState) => this.updateFromLoad(loadState));
+      .subscribe((loadState) => this.updateFromLoad(loadState)),
+      (error: any) => console.log(error);
   }
 
   updateFromLoad(loadState: GameBoardState) {
-    this.gameBoardState.lastPlayed = loadState.lastPlayed;
-    this.gameBoardState.turns = loadState.turns;
-    this.gameBoardState.gameboard.cells = loadState.cells;
+    console.log(loadState);
+    this.gameBoardState = loadState;
   }
 
   ngOnInit(): void {
     this.initializeGameBoard();
-    console.log(this.gameBoardState.gameboard);
-    this._gameboardService.loadGame().subscribe((data) => console.log(data));
   }
 }

@@ -1,10 +1,7 @@
 <div class="container board">
   <h1>Tic Tac Toe</h1>
   <div class="row row-cols-3 align-items-center">
-    <div
-      class="col cell-container"
-      *ngFor="let cell of gameBoardState.gameboard.cells"
-    >
+    <div class="col cell-container" *ngFor="let cell of gameBoardState.cells">
       <div class="ratio ratio-1x1 cell-display">
         <div
           class="option-display d-flex align-items-center justify-content-center"
@@ -32,7 +29,7 @@
     </button>
   </div>
   <button class="btn btn-primary btn-lg" (click)="saveGame()">Save</button>
-  <button class="btn btn-primary btn-lg" (click)="loadGame()">Load</button>
+  <button class="btn btn-primary btn-lg" (click)="confirmLoad()">Load</button>
 </div>
 <div *ngIf="gameBoardState.winner != null">
   <app-game-end-modal
