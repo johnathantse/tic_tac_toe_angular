@@ -1,5 +1,5 @@
 import { GameBoard } from '../gameboard';
-import { GameBoardCellOptions, GameCellState } from '../GameCellState';
+import { GameBoardCellOptions, GameCellState } from './GameCellState';
 
 export class GameBoardState {
   private _lastPlayed: GameCellState;

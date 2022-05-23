@@ -30,6 +30,7 @@
   </div>
   <button class="btn btn-primary btn-lg" (click)="saveGame()">Save</button>
   <button class="btn btn-primary btn-lg" (click)="confirmLoad()">Load</button>
+<app-confirm-modal #confirmation (closeEmitter)= "closeLoadModal()"></app-confirm-modal>
 </div>
 <div *ngIf="gameBoardState.winner != null">
   <app-game-end-modal

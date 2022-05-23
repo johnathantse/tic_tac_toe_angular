@@ -8,6 +8,7 @@ import { GameboardComponent } from './gameboard/gameboard.component';
 import { GamecellOptionsComponent } from './gamecell-options/gamecell-options.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WinnerModalComponent } from './game-end-modal/game-end-modal.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { WinnerModalComponent } from './game-end-modal/game-end-modal.component'
     GameboardComponent,
     GamecellOptionsComponent,
     WinnerModalComponent,
+    ConfirmModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
   providers: [],

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { GameBoardCellOptions } from '../GameCellState';
-import { GameCellState } from '../GameCellState';
-import { GameBoard } from '../gameboard';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GameBoardCellOptions } from '../models/GameCellState';
+import { GameCellState } from '../models/GameCellState';
 import { GameboardService } from '../gameboard.service';
 import { GameBoardState } from '../models/GameBoardState';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+
 @Component({
   selector: 'app-gameboard',
   templateUrl: './gameboard.component.html',
   styleUrls: ['./gameboard.component.css'],
 })
 export class GameboardComponent implements OnInit {
+  @ViewChild('confirmation') confirmation: ConfirmModalComponent;
+
   gameBoardState: GameBoardState;
   winIndices = [
     [0, 1, 2],
@@ -23,7 +26,7 @@ export class GameboardComponent implements OnInit {
   ];
 
   constructor(private _gameboardService: GameboardService) {}
-
+  
   public setCellOption(
     cell: GameCellState,
     option: GameBoardCellOptions,
@@ -104,23 +107,6 @@ export class GameboardComponent implements OnInit {
     this.gameBoardState.cells = cells;
   }
 
-  confirmLoad() {
-    if (this.gameBoardState.hasPlayed == true) {
-      if (confirm('Are you sure you want to load?')) {
-        this.loadGame();
-      }
-    } else {
-      this.loadGame();
-    }
-  }
-
-  saveGame() {
-    this._gameboardService
-      .saveGame(this.gameBoardState)
-      .subscribe((data) => console.log(data)),
-      (error: any) => console.log(error);
-  }
-
   loadGame() {
     this._gameboardService
       .loadGame()
@@ -128,9 +114,30 @@ export class GameboardComponent implements OnInit {
       (error: any) => console.log(error);
   }
 
+  confirmLoad() {
+    // If there is a game in progress, have user confirm before loading.
+    if(this.gameBoardState.hasPlayed){
+      this.confirmation.open()
+    } else {
+      this.loadGame()
+    }
+  }
+
+  closeLoadModal(){
+    if(this.confirmation.confirmResult){
+      this.loadGame()
+    }
+  }
+
   updateFromLoad(loadState: GameBoardState) {
-    console.log(loadState);
     this.gameBoardState = loadState;
+  }
+
+  saveGame() {
+    this._gameboardService
+      .saveGame(this.gameBoardState)
+      .subscribe((data) => console.log(data)),
+      (error: any) => console.log(error);
   }
 
   ngOnInit(): void {

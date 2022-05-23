@@ -53,4 +53,3 @@ export class GameboardService {
     ).pipe(catchError(this.handleError));
   }
 }
-WebGL2RenderingContext

@@ -1,4 +1,4 @@
-import { GameCellState, GameBoardCellOptions } from './GameCellState';
+import { GameCellState, GameBoardCellOptions } from './models/GameCellState';
 
 export class GameBoard {
   private _cells: Array<GameCellState>;
