@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GameBoardCellOptions } from '../models/GameCellState';
 import { GameCellState } from '../models/GameCellState';
 import { GameboardService } from '../gameboard.service';
@@ -24,9 +24,12 @@ export class GameboardComponent implements OnInit {
     [0, 4, 8],
     [6, 4, 2],
   ];
+  alert: boolean = false;
+  alertType: string = "";
+  message: string = "";
 
   constructor(private _gameboardService: GameboardService) {}
-  
+
   public setCellOption(
     cell: GameCellState,
     option: GameBoardCellOptions,
@@ -116,16 +119,16 @@ export class GameboardComponent implements OnInit {
 
   confirmLoad() {
     // If there is a game in progress, have user confirm before loading.
-    if(this.gameBoardState.hasPlayed){
-      this.confirmation.open()
+    if (this.gameBoardState.hasPlayed) {
+      this.confirmation.open();
     } else {
-      this.loadGame()
+      this.loadGame();
     }
   }
 
-  closeLoadModal(){
-    if(this.confirmation.confirmResult){
-      this.loadGame()
+  closeLoadModal() {
+    if (this.confirmation.confirmResult) {
+      this.loadGame();
     }
   }
 
@@ -133,11 +136,40 @@ export class GameboardComponent implements OnInit {
     this.gameBoardState = loadState;
   }
 
+  // saveGame() {
+  //   this._gameboardService
+  //     .saveGame(this.gameBoardState)
+  //     .subscribe((data) => this.onSucess(data)),
+  //     (error: any) => console.error('Error saving game: ' + error),
+  //     (data: any) => console.log('Results:' + data);
+  // }
+
   saveGame() {
-    this._gameboardService
-      .saveGame(this.gameBoardState)
-      .subscribe((data) => console.log(data)),
-      (error: any) => console.log(error);
+    this._gameboardService.saveGame(this.gameBoardState).subscribe({
+      next: () => this.onSuccess("Game saved successfully"),
+      error: (error: any) => this.onError("Error saving game" + error),
+    });
+    if (this.alert == false) {
+      setTimeout(() => this.closeAlert(), 5000);
+    }
+  }
+
+  onSuccess(message: string) {
+    this.alertType = "success";
+    this.alert = true;
+    this.message = message
+  }
+
+  onError(message: any){
+    this.alertType="danger";
+    this.alert = true;
+    this.message = message
+  }
+
+  closeAlert() {
+    this.alert = false;
+    this.alertType = "";
+    this.message = "";
   }
 
   ngOnInit(): void {

@@ -31,7 +31,10 @@ export class GameboardService {
     // Return an observable with a user-facing error message.
     return throwError(
       // () => new Error('Something bad happened; please try again later.')
-      () => new Error('Error occured with status: ' + error.status + ' ' + error.error)
+      () =>
+        new Error(
+          'Error occured with status: ' + error.status + ' ' + error.error
+        )
     );
   }
 
@@ -41,15 +44,19 @@ export class GameboardService {
       .pipe(catchError(this.handleError));
   }
 
-  saveGame(
-    gameBoardState: GameBoardState
-  ): Observable<HttpResponse<GameBoardState>> {
-    return this.http.put<GameBoardState>(
-      environment.apiUrl + '/gameboard',
-      gameBoardState,
-      {
-        observe: 'response',
-      }
-    ).pipe(catchError(this.handleError));
+  // saveGame(
+  //   gameBoardState: GameBoardState
+  // ): Observable<HttpResponse<GameBoardState>> {
+  //   return this.http
+  //     .put<GameBoardState>(environment.apiUrl + '/gameboard1', gameBoardState, {
+  //       observe: 'response',
+  //     })
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  saveGame(gameBoardState: GameBoardState): Observable<GameBoardState> {
+    return this.http
+      .put<GameBoardState>(environment.apiUrl + '/gameboard', gameBoardState)
+      .pipe(catchError(this.handleError));
   }
 }

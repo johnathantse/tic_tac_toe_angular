@@ -1,4 +1,3 @@
-import { GameBoard } from '../gameboard';
 import { GameBoardCellOptions, GameCellState } from './GameCellState';
 
 export class GameBoardState {

@@ -9,6 +9,7 @@ import { GamecellOptionsComponent } from './gamecell-options/gamecell-options.co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WinnerModalComponent } from './game-end-modal/game-end-modal.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { GameAlertsComponent } from './game-alerts/game-alerts.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     GamecellOptionsComponent,
     WinnerModalComponent,
     ConfirmModalComponent,
+    GameAlertsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
   providers: [],
