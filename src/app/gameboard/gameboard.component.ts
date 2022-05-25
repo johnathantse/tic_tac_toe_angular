@@ -4,6 +4,7 @@ import { GameCellState } from '../models/GameCellState';
 import { GameboardService } from '../gameboard.service';
 import { GameBoardState } from '../models/GameBoardState';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-gameboard',
@@ -25,8 +26,11 @@ export class GameboardComponent implements OnInit {
     [6, 4, 2],
   ];
 
-  constructor(private _gameboardService: GameboardService) {}
-  
+  constructor(
+    private _gameboardService: GameboardService,
+    private _modalService: NgbModal
+  ) {}
+
   public setCellOption(
     cell: GameCellState,
     option: GameBoardCellOptions,
@@ -96,7 +100,7 @@ export class GameboardComponent implements OnInit {
     this.gameBoardState.turns = [];
     this.gameBoardState.turns.push(this.gameBoardState.lastPlayed);
     this.gameBoardState.hasPlayed = false;
-    this.gameBoardState.winner = null;
+    this.gameBoardState.winner = '';
     this.gameBoardState.turnsPlayed = 0;
     this.gameBoardState.tieGame = false;
     let cells = [];
@@ -110,27 +114,32 @@ export class GameboardComponent implements OnInit {
   loadGame() {
     this._gameboardService
       .loadGame()
-      .subscribe((loadState) => this.updateFromLoad(loadState)),
+      .subscribe((loadState) => this.gameBoardState = loadState),
+
       (error: any) => console.log(error);
+      console.log(this.gameBoardState);
   }
 
   confirmLoad() {
     // If there is a game in progress, have user confirm before loading.
-    if(this.gameBoardState.hasPlayed){
-      this.confirmation.open()
+    if (this.gameBoardState.hasPlayed) {
+      this._modalService
+        .open(ConfirmModalComponent, {
+          backdrop: 'static',
+          keyboard: false,
+          centered: true,
+        })
+        .result.then(
+          () => {
+            this.loadGame();
+          },
+          (reject) => {
+            console.log(reject)
+          }
+        );
     } else {
-      this.loadGame()
+      this.loadGame();
     }
-  }
-
-  closeLoadModal(){
-    if(this.confirmation.confirmResult){
-      this.loadGame()
-    }
-  }
-
-  updateFromLoad(loadState: GameBoardState) {
-    this.gameBoardState = loadState;
   }
 
   saveGame() {

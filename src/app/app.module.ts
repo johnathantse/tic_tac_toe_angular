@@ -6,8 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameboardComponent } from './gameboard/gameboard.component';
 import { GamecellOptionsComponent } from './gamecell-options/gamecell-options.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { WinnerModalComponent } from './game-end-modal/game-end-modal.component';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GameEndComponent } from './game-end-modal/game-end-modal.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
@@ -15,11 +15,11 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     AppComponent,
     GameboardComponent,
     GamecellOptionsComponent,
-    WinnerModalComponent,
+    GameEndComponent,
     ConfirmModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
-  providers: [],
+  providers: [NgbActiveModal],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

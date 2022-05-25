@@ -30,9 +30,8 @@
   </div>
   <button class="btn btn-primary btn-lg" (click)="saveGame()">Save</button>
   <button class="btn btn-primary btn-lg" (click)="confirmLoad()">Load</button>
-<app-confirm-modal #confirmation (closeEmitter)= "closeLoadModal()"></app-confirm-modal>
 </div>
-<div *ngIf="gameBoardState.winner != null">
+<div *ngIf="gameBoardState.winner">
   <app-game-end-modal
     [playerName]="gameBoardState.winner"
     (resetGameEmitter)="initializeGameBoard()"
@@ -41,6 +40,7 @@
 <div *ngIf="gameBoardState.tieGame == true">
   <app-game-end-modal
     [tieGame]="true"
+    [playerName]="gameBoardState.winner"
     (resetGameEmitter)="initializeGameBoard()"
   ></app-game-end-modal>
 </div>

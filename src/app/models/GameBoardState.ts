@@ -5,7 +5,8 @@ export class GameBoardState {
   private _lastPlayed: GameCellState;
   private _turns: Array<GameCellState>;
   private _hasPlayed: boolean;
-  private _winner?: GameBoardCellOptions | null | undefined;
+  private _winner: string;
+
   private _tieGame: boolean;
   private _cells: Array<GameCellState>;
   private _turnsPlayed: number;
@@ -22,6 +23,14 @@ export class GameBoardState {
       cells: this._cells,
       turnsPlayed: this._turnsPlayed,
     };
+  }
+
+  public get winner(): string {
+    return this._winner;
+  }
+  
+  public set winner(value: string) {
+    this._winner = value;
   }
 
   public get cells(): Array<GameCellState> {
@@ -54,14 +63,6 @@ export class GameBoardState {
 
   public set hasPlayed(value: boolean) {
     this._hasPlayed = value;
-  }
-
-  public get winner(): GameBoardCellOptions | null | undefined {
-    return this._winner;
-  }
-
-  public set winner(value: GameBoardCellOptions | null | undefined) {
-    this._winner = value;
   }
 
   public get tieGame(): boolean {
