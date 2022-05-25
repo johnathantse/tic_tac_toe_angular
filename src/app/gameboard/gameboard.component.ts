@@ -4,7 +4,8 @@ import { GameCellState } from '../models/GameCellState';
 import { GameboardService } from '../gameboard.service';
 import { GameBoardState } from '../models/GameBoardState';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { GameEndComponent } from '../game-end-modal/game-end-modal.component';
 
 @Component({
   selector: 'app-gameboard',
@@ -25,6 +26,12 @@ export class GameboardComponent implements OnInit {
     [0, 4, 8],
     [6, 4, 2],
   ];
+
+  defaultModalOptions: NgbModalOptions = {
+    backdrop: 'static',
+    keyboard: false,
+    centered: true,
+  };
 
   constructor(
     private _gameboardService: GameboardService,
@@ -68,6 +75,14 @@ export class GameboardComponent implements OnInit {
     }
   }
 
+  public openEndGameModal(playerName: String, tieGame: boolean){
+    const modalRef = this._modalService.open(GameEndComponent, this.defaultModalOptions);
+    modalRef.componentInstance.tieGame = tieGame;
+    modalRef.componentInstance.playerName = playerName 
+    modalRef.result.then(()=> this.initializeGameBoard())
+
+  }
+  
   public calculateWin() {
     let cells = this.gameBoardState.cells;
     for (let winCond of this.winIndices) {
@@ -77,6 +92,7 @@ export class GameboardComponent implements OnInit {
         cells[winCond[0]].option != GameBoardCellOptions.UNK
       ) {
         this.gameBoardState.winner = cells[winCond[0]].option;
+        this.openEndGameModal(this.gameBoardState.winner, false)
         return true;
       }
     }
@@ -87,6 +103,7 @@ export class GameboardComponent implements OnInit {
     if (this.gameBoardState.turnsPlayed >= 9) {
       console.log('Cats game');
       this.gameBoardState.tieGame = true;
+      this.openEndGameModal(this.gameBoardState.winner, true)
     }
   }
 
@@ -117,18 +134,13 @@ export class GameboardComponent implements OnInit {
       .subscribe((loadState) => this.gameBoardState = loadState),
 
       (error: any) => console.log(error);
-      console.log(this.gameBoardState);
   }
 
   confirmLoad() {
     // If there is a game in progress, have user confirm before loading.
     if (this.gameBoardState.hasPlayed) {
       this._modalService
-        .open(ConfirmModalComponent, {
-          backdrop: 'static',
-          keyboard: false,
-          centered: true,
-        })
+        .open(ConfirmModalComponent, this.defaultModalOptions)
         .result.then(
           () => {
             this.loadGame();
