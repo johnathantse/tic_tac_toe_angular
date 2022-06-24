@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { GameCellState, GameBoardCellOptions } from '../GameCellState';
+import { GameBoardCellOptions, GameCellState } from '../models/GameCellState';
 
 @Component({
   selector: 'app-gamecell-options',

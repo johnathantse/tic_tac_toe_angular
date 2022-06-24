@@ -1,7 +1,7 @@
 <div class="container board">
   <h1>Tic Tac Toe</h1>
   <div class="row row-cols-3 align-items-center">
-    <div class="col cell-container" *ngFor="let cell of gameboard.cells">
+    <div class="col cell-container" *ngFor="let cell of gameBoardState.cells">
       <div class="ratio ratio-1x1 cell-display">
         <div
           class="option-display d-flex align-items-center justify-content-center"
@@ -11,7 +11,7 @@
           </h1>
           <app-gamecell-options
             (lastPlayedEmitter)="updateGameState($event)"
-            [lastPlayed]="lastPlayed"
+            [lastPlayed]="gameBoardState.lastPlayed"
             [defaultSelected]="cell.option"
             [gameCell]="cell"
           ></app-gamecell-options>
@@ -22,22 +22,12 @@
   <div class="undo-div">
     <button
       class="btn btn-primary btn-lg"
-      [disabled]="hasPlayed == false"
+      [disabled]="gameBoardState.hasPlayed == false"
       (click)="undo()"
     >
       Undo
     </button>
   </div>
-</div>
-<div *ngIf="winner != null">
-  <app-game-end-modal
-    [playerName]="winner"
-    (resetGameEmitter)="initializeGameBoard()"
-  ></app-game-end-modal>
-</div>
-<div *ngIf="tieGame == true">
-  <app-game-end-modal
-    [tieGame]="true"
-    (resetGameEmitter)="initializeGameBoard()"
-  ></app-game-end-modal>
+  <button class="btn btn-primary btn-lg" (click)="saveGame()">Save</button>
+  <button class="btn btn-primary btn-lg" (click)="confirmLoad()">Load</button>
 </div>

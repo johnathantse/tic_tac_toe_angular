@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GameEndComponent } from './game-end-modal.component';
+import { ConfirmModalComponent } from './confirm-modal.component';
 
-describe('WinnerModalComponent', () => {
-  let component: GameEndComponent;
-  let fixture: ComponentFixture<GameEndComponent>;
+describe('ConfirmModalComponent', () => {
+  let component: ConfirmModalComponent;
+  let fixture: ComponentFixture<ConfirmModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameEndComponent ]
+      declarations: [ ConfirmModalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GameEndComponent);
+    fixture = TestBed.createComponent(ConfirmModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

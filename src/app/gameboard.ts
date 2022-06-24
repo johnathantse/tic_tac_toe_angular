@@ -1,16 +1,23 @@
-import { GameCellState, GameBoardCellOptions } from './GameCellState';
+import { GameCellState, GameBoardCellOptions } from './models/GameCellState';
 
 export class GameBoard {
   private _cells: Array<GameCellState>;
   winIndices: Array<[number, number, number]>;
 
-  constructor(winIndices: Array<[number, number, number]>, cells: Array<GameCellState>) {
+  constructor(
+    winIndices: Array<[number, number, number]>,
+    cells: Array<GameCellState>
+  ) {
     this.winIndices = winIndices;
     this._cells = cells;
   }
 
   public get cells() {
     return this._cells;
+  }
+
+  public set cells(value) {
+    this._cells = value;
   }
 
   public setCellOption(
