@@ -1,0 +1,32 @@
+<!-- <ng-template #content let-modal> -->
+<div *ngIf="playerName != ''">
+  <div class="modal-head">
+    <h4>Winner</h4>
+  </div>
+  <div class="modal-body">Player {{ playerName }} wins</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="activeModal.close()"
+    >
+      close
+    </button>
+  </div>
+</div>
+<div *ngIf="tieGame == true">
+  <div class="modal-head">
+    <h4>Cats Game</h4>
+  </div>
+  <div class="modal-body">Cats Game (tie)</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="activeModal.close()"
+    >
+      close
+    </button>
+  </div>
+</div>
+<!-- </ng-template> -->

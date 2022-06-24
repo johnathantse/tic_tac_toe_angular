@@ -1,0 +1,33 @@
+<div class="container board">
+  <h1>Tic Tac Toe</h1>
+  <div class="row row-cols-3 align-items-center">
+    <div class="col cell-container" *ngFor="let cell of gameBoardState.cells">
+      <div class="ratio ratio-1x1 cell-display">
+        <div
+          class="option-display d-flex align-items-center justify-content-center"
+        >
+          <h1 [ngClass]="cell.option == 'X' ? 'cellDisplayX' : 'cellDisplayO'">
+            {{ cell.option }}
+          </h1>
+          <app-gamecell-options
+            (lastPlayedEmitter)="updateGameState($event)"
+            [lastPlayed]="gameBoardState.lastPlayed"
+            [defaultSelected]="cell.option"
+            [gameCell]="cell"
+          ></app-gamecell-options>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="undo-div">
+    <button
+      class="btn btn-primary btn-lg"
+      [disabled]="gameBoardState.hasPlayed == false"
+      (click)="undo()"
+    >
+      Undo
+    </button>
+  </div>
+  <button class="btn btn-primary btn-lg" (click)="saveGame()">Save</button>
+  <button class="btn btn-primary btn-lg" (click)="confirmLoad()">Load</button>
+</div>
